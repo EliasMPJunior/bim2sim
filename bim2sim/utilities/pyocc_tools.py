@@ -24,8 +24,8 @@ from OCC.Core.ShapeAnalysis import ShapeAnalysis_ShapeContents
 from OCC.Core.ShapeFix import ShapeFix_Face, ShapeFix_Shape
 from OCC.Core.TopAbs import TopAbs_WIRE, TopAbs_FACE, TopAbs_OUT
 from OCC.Core.TopExp import TopExp_Explorer
-from OCC.Core.TopoDS import topods_Wire, TopoDS_Face, TopoDS_Shape, \
-    topods_Face, TopoDS_Edge, TopoDS_Solid, TopoDS_Shell, TopoDS_Builder
+from OCC.Core.TopoDS import TopoDS_Wire, TopoDS_Face, TopoDS_Shape, \
+    TopoDS_Edge, TopoDS_Solid, TopoDS_Shell, TopoDS_Builder
 from OCC.Core.gp import gp_XYZ, gp_Pnt, gp_Trsf, gp_Vec
 
 
@@ -105,7 +105,7 @@ class PyOCCTools:
         an_exp = TopExp_Explorer(shape, TopAbs_WIRE)
         pnt_list = []
         while an_exp.More():
-            wire = topods_Wire(an_exp.Current())
+            wire = TopoDS_Wire(an_exp.Current())
             w_exp = BRepTools_WireExplorer(wire)
             while w_exp.More():
                 pnt1 = BRep_Tool.Pnt(w_exp.CurrentVertex())
@@ -313,7 +313,7 @@ class PyOCCTools:
         exp = TopExp_Explorer(shape, TopAbs_FACE)
         face = exp.Current()
         try:
-            face = topods_Face(face)
+            face = TopoDS_Face(face)
         except:
             exp1 = TopExp_Explorer(shape, TopAbs_WIRE)
             wire = exp1.Current()
@@ -326,7 +326,7 @@ class PyOCCTools:
         faces = []
         an_exp = TopExp_Explorer(shape, TopAbs_FACE)
         while an_exp.More():
-            face = topods_Face(an_exp.Current())
+            face = TopoDS_Face(an_exp.Current())
             faces.append(face)
             an_exp.Next()
         return faces
