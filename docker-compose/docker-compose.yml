@@ -1,0 +1,23 @@
+services:
+    bim2sim:
+        image: eliasmpjunior/bim2sim:latest
+        build:
+            context: ../
+            dockerfile: ./docker-compose/manifests/Dockerfile
+        container_name: bim2sim
+        hostname: bim2sim
+        ports:
+        - "${PORT:-8080}:8080"
+        environment:
+            - TZ=America/Sao_Paulo
+        networks:
+            - brasidata
+        command:
+            - bash
+            - -c
+            - |
+                python -m bim2sim -h
+
+networks:
+  brasidata:
+    external: true
