@@ -2,3 +2,6 @@
 	path = test/resources
 	url = https://github.com/BIM2SIM/bim2sim-test-resources.git
     branch = main
+[submodule "projects/tests-repo"]
+	path = projects/tests-repo
+	url = https://github.com/BIM2SIM/bim2sim-test-resources.git

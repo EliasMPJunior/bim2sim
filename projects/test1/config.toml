@@ -1,0 +1,16 @@
+; [GenericSimulationSettings]
+; building_rotation_overwrite = 0
+[Generic Simulation Settings]
+weather_file_path = /projects/test1/weather_files/rio_de_janeiro.mos
+
+[SimulationSettings]
+weather_file_path = /projects/test1/weather_files/rio_de_janeiro.mos
+
+[Backend]
+use = teaser
+
+[Frontend]
+use = ConsoleFrontEnd
+
+[Modelica]
+version = 4.0

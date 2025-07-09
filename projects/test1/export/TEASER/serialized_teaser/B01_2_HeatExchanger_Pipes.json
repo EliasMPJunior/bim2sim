@@ -1,0 +1,37 @@
+{
+    "project": {
+        "version": "1.1.0",
+        "name": "B01_2_HeatExchanger_Pipes",
+        "weather_file_path": "/projects/test1/weather_files/rio_de_janeiro.mos",
+        "number_of_elements_calc": 2,
+        "merge_windows_calc": false,
+        "used_library_calc": "AixLib",
+        "modelica_info": {
+            "start_time": 0,
+            "stop_time": 31536000,
+            "interval_output": "3600",
+            "current_solver": "Cvode",
+            "equidistant_output": true,
+            "results_at_events": false,
+            "version": "4.0.0"
+        },
+        "buildings": {
+            "XX": {
+                "classification": {
+                    "class": "Building",
+                    "construction_data": "undefined"
+                },
+                "street_name": "",
+                "city": "",
+                "year_of_construction": 1950,
+                "year_of_retrofit": null,
+                "number_of_floors": 1,
+                "height_of_floors": null,
+                "net_leased_area": null,
+                "outer_area": {},
+                "window_area": {},
+                "thermal_zones": {}
+            }
+        }
+    }
+}

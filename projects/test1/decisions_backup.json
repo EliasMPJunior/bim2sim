@@ -1,0 +1,10 @@
+{
+  "version": "0.2.3",
+  "checksum_ifc": null,
+  "decisions": {
+    "IfcBuilding_05uSjAamfwZaZXPe9Eb4WM.year_of_construction": {
+      "value": 1950.0,
+      "unit": "year"
+    }
+  }
+}

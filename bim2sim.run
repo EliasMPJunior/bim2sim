@@ -1,0 +1,7 @@
+/bin/bash
+
+cd docker-compose
+
+docker compose up bim2sim --force-recreate --build -d
+
+docker exec -it bim2sim bim2sim project load /projects/test1
