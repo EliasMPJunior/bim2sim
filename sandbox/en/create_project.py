@@ -12,5 +12,3 @@ if Project.is_project_folder(project_path):
 else:
     # else create a new one
     project = Project.create(project_path, ifc_path, 'energyplus')
-    if Path('/projects/en/ifc/arch/AC20-FZK-Haus.ifc').exists() and ifc_path[IFCDomain.arch].exists():
-        ifc_path[IFCDomain.arch].unlink()

@@ -10,6 +10,8 @@ services:
         volumes:
             - ../projects:/projects
             - ../bim2sim:/tmp/build/lib/bim2sim
+        ports:
+        - "${PORT:-8081}:8000"
         environment:
             - TZ=America/Sao_Paulo
         networks:
@@ -19,6 +21,7 @@ services:
             - -c
             - |
                 tail -f /dev/null
+            # cd /projects/en/log && python -m http.server 8000
 
 networks:
   brasidata:
