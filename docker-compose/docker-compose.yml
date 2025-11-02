@@ -1,6 +1,7 @@
 services:
     bim2sim:
         image: eliasmpjunior/bim2sim:latest
+        platform: linux/amd64
         build:
             context: ../
             dockerfile: ./docker-compose/manifests/Dockerfile
