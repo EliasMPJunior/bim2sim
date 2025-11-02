@@ -21,7 +21,7 @@ from OCC.Core.Extrema import Extrema_ExtFlag_MIN
 from OCC.Core.GProp import GProp_GProps
 from OCC.Core.TopAbs import TopAbs_FACE
 from OCC.Core.TopExp import TopExp_Explorer
-from OCC.Core.TopoDS import TopoDS_Face, TopoDS_Shape
+from OCC.Core.TopoDS import topods_Face, TopoDS_Shape
 from OCC.Core.gp import gp_Pnt, gp_Trsf, gp_XYZ, gp_Vec
 
 from bim2sim.elements.bps_elements import ExternalSpatialElement, \
@@ -217,7 +217,7 @@ class CorrectSpaceBoundaries(ITask):
             f_exp = TopExp_Explorer(fixed_shape, TopAbs_FACE)
             fixed_faces = []
             while f_exp.More():
-                fixed_faces.append(TopoDS_Face(f_exp.Current()))
+                fixed_faces.append(topods_Face(f_exp.Current()))
                 f_exp.Next()
             for fc in fixed_faces:
                 # compute the surface normal for each face

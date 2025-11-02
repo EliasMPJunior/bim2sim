@@ -9,7 +9,10 @@ services:
         hostname: bim2sim
         volumes:
             - ../projects:/projects
-            - ../bim2sim:/tmp/build/lib/bim2sim
+            # - ../bim2sim:/tmp/build/lib/bim2sim
+            # - ../bim2sim/tasks:/opt/conda/lib/python3.10/site-packages/bim2sim/tasks
+            # - ../bim2sim/project.py:/opt/conda/lib/python3.10/site-packages/bim2sim/project.py
+            - ../bim2sim:/opt/conda/lib/python3.10/site-packages/bim2sim
         ports:
         - "${PORT:-8081}:8000"
         environment:

@@ -422,7 +422,7 @@ class Project:
         if not self.paths.is_project_folder():
             raise AssertionError("Project ist not set correctly!")
 
-        self.sim_settings.weather_file_path = "/projects/test1/weather_files/rio_de_janeiro.mos"
+        # self.sim_settings.weather_file_path = "/projects/test1/weather_files/rio_de_janeiro2.mos"
         self.sim_settings.check_mandatory()
         success = False
         if interactive:

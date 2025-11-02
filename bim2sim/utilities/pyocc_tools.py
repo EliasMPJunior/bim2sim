@@ -24,7 +24,7 @@ from OCC.Core.ShapeAnalysis import ShapeAnalysis_ShapeContents
 from OCC.Core.ShapeFix import ShapeFix_Face, ShapeFix_Shape
 from OCC.Core.TopAbs import TopAbs_WIRE, TopAbs_FACE, TopAbs_OUT
 from OCC.Core.TopExp import TopExp_Explorer
-from OCC.Core.TopoDS import TopoDS_Wire, TopoDS_Face, TopoDS_Shape, \
+from OCC.Core.TopoDS import topods_Wire, topods_Face, TopoDS_Shape, \
     TopoDS_Edge, TopoDS_Solid, TopoDS_Shell, TopoDS_Builder
 from OCC.Core.gp import gp_XYZ, gp_Pnt, gp_Trsf, gp_Vec
 
@@ -67,11 +67,11 @@ class PyOCCTools:
 
     @staticmethod
     def make_faces_from_pnts(
-            pnt_list: Union[List[Tuple[float]], List[gp_Pnt]]) -> TopoDS_Face:
+            pnt_list: Union[List[Tuple[float]], List[gp_Pnt]]) -> topods_Face:
         """
-        This function returns a TopoDS_Face from list of gp_Pnt
+        This function returns a topods_Face from list of gp_Pnt
         :param pnt_list: list of gp_Pnt or Coordinate-Tuples
-        :return: TopoDS_Face
+        :return: topods_Face
         """
         if isinstance(pnt_list[0], tuple):
             new_list = []
@@ -105,7 +105,7 @@ class PyOCCTools:
         an_exp = TopExp_Explorer(shape, TopAbs_WIRE)
         pnt_list = []
         while an_exp.More():
-            wire = TopoDS_Wire(an_exp.Current())
+            wire = topods_Wire(an_exp.Current())
             w_exp = BRepTools_WireExplorer(wire)
             while w_exp.More():
                 pnt1 = BRep_Tool.Pnt(w_exp.CurrentVertex())
@@ -115,7 +115,7 @@ class PyOCCTools:
         return pnt_list
 
     @staticmethod
-    def get_center_of_face(face: TopoDS_Face) -> gp_Pnt:
+    def get_center_of_face(face: topods_Face) -> gp_Pnt:
         """
         Calculates the center of the given face. The center point is the center
         of mass.
@@ -158,7 +158,7 @@ class PyOCCTools:
         return prop.CentreOfMass()
 
     @staticmethod
-    def scale_face(face: TopoDS_Face, factor: float,
+    def scale_face(face: topods_Face, factor: float,
                    predefined_center: gp_Pnt = None) -> TopoDS_Shape:
         """
         Scales the given face by the given factor, using the center of mass of
@@ -203,7 +203,7 @@ class PyOCCTools:
         return BRepBuilderAPI_Transform(edge, trsf).Shape()
 
     @staticmethod
-    def fix_face(face: TopoDS_Face, tolerance=1e-3) -> TopoDS_Face:
+    def fix_face(face: topods_Face, tolerance=1e-3) -> topods_Face:
         """Apply shape healing on a face."""
         fix = ShapeFix_Face(face)
         fix.SetMaxTolerance(tolerance)
@@ -287,9 +287,9 @@ class PyOCCTools:
         return np.dot(PyOCCTools._axis2placement(plc.RelativePlacement), parent)
 
     @staticmethod
-    def simple_face_normal(face: TopoDS_Face, check_orientation: bool = True) \
+    def simple_face_normal(face: topods_Face, check_orientation: bool = True) \
             -> gp_XYZ:
-        """Compute the normal of a TopoDS_Face."""
+        """Compute the normal of a topods_Face."""
         face = PyOCCTools.get_face_from_shape(face)
         surf = BRep_Tool.Surface(face)
         obj = surf
@@ -302,18 +302,18 @@ class PyOCCTools:
         return face_normal
 
     @staticmethod
-    def flip_orientation_of_face(face: TopoDS_Face) -> TopoDS_Face:
-        """Flip the orientation of a TopoDS_Face."""
+    def flip_orientation_of_face(face: topods_Face) -> topods_Face:
+        """Flip the orientation of a topods_Face."""
         face = face.Reversed()
         return face
 
     @staticmethod
-    def get_face_from_shape(shape: TopoDS_Shape) -> TopoDS_Face:
+    def get_face_from_shape(shape: TopoDS_Shape) -> topods_Face:
         """Return first face of a TopoDS_Shape."""
         exp = TopExp_Explorer(shape, TopAbs_FACE)
         face = exp.Current()
         try:
-            face = TopoDS_Face(face)
+            face = topods_Face(face)
         except:
             exp1 = TopExp_Explorer(shape, TopAbs_WIRE)
             wire = exp1.Current()
@@ -321,12 +321,12 @@ class PyOCCTools:
         return face
 
     @staticmethod
-    def get_faces_from_shape(shape: TopoDS_Shape) -> List[TopoDS_Face]:
+    def get_faces_from_shape(shape: TopoDS_Shape) -> List[topods_Face]:
         """Return all faces from a shape."""
         faces = []
         an_exp = TopExp_Explorer(shape, TopAbs_FACE)
         while an_exp.More():
-            face = TopoDS_Face(an_exp.Current())
+            face = topods_Face(an_exp.Current())
             faces.append(face)
             an_exp.Next()
         return faces
@@ -341,7 +341,7 @@ class PyOCCTools:
 
     @staticmethod
     def remove_coincident_and_collinear_points_from_face(
-            face: TopoDS_Face) -> TopoDS_Face:
+            face: topods_Face) -> topods_Face:
         """
         removes collinear and coincident vertices iff resulting number of
         vertices is > 3, so a valid face can be build.
@@ -384,7 +384,7 @@ class PyOCCTools:
 
     @staticmethod
     def move_bounds_to_vertical_pos(bound_list: list(),
-                                    base_face: TopoDS_Face) -> list[TopoDS_Shape]:
+                                    base_face: topods_Face) -> list[TopoDS_Shape]:
         new_shape_list = []
         for bound in bound_list:
             if not isinstance(bound, TopoDS_Shape):
@@ -408,7 +408,7 @@ class PyOCCTools:
         return new_shape_list
 
     @staticmethod
-    def get_footprint_of_shape(shape: TopoDS_Shape) -> TopoDS_Face:
+    def get_footprint_of_shape(shape: TopoDS_Shape) -> topods_Face:
         """
         Calculate the footprint of a TopoDS_Shape.
         """
@@ -493,11 +493,11 @@ class PyOCCTools:
         return pnt_in_solid
 
     @staticmethod
-    def make_shell_from_faces(faces: list[TopoDS_Face]) -> TopoDS_Shell:
-        """Creates a TopoDS_Shell from a list of TopoDS_Face.
+    def make_shell_from_faces(faces: list[topods_Face]) -> TopoDS_Shell:
+        """Creates a TopoDS_Shell from a list of topods_Face.
 
         Args:
-            faces: list of TopoDS_Face
+            faces: list of topods_Face
 
         Returns: TopoDS_Shell
         """
