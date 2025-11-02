@@ -35,6 +35,9 @@ class RunEnergyPlusSimulation(ITask):
         if not ep_full and not self.playground.sim_settings.set_run_period:
             design_day = True
 
+        print(f"Run EnergyPlus simulation in {idf}")
+        self.logger.warning(f"Run EnergyPlus simulation in {export_path}")
+
         idf.run(output_directory=export_path, readvars=True, annual=ep_full,
                 design_day=design_day)
         self.playground.sim_settings.simulated = True
